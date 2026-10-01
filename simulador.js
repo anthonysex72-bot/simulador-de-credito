@@ -5,4 +5,9 @@ function calcular(){
     let egresos=parseFloat(document.getElementById("txtEgresos").value);
 
     let disponible=calcularDisponible(ingresos,egresos);
+
+    document.getElementById("spnDisponible").innerText=disponible.toFixed(2);
+
 }
+
+document.getElementById("btnCalcularCredito").addEventListener("click",calcular);
