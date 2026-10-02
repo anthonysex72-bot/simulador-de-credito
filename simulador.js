@@ -15,6 +15,8 @@ function calcular(){
     let tasa =parseInt(document.getElementById("txtTasaInteres").value);
     let interes=calcularInteresSimple(monto,tasa,plazoAnios);
     document.getElementById("spnInteresPagar").innerText=interes.toFixed(2);
+    let total = calcularTotalPagar(monto, interes);
+    document.getElementById("spnTotalPrestamo").innerText=total.toFixed(2);
 
 }
 
