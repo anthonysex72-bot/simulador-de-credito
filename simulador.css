@@ -602,3 +602,16 @@ button:active {
         padding: 13px;
     }
 }
+.mensaje-error {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #fbfbfb;
+
+    font-size: 13px;
+
+    font-style: italic;
+
+    font-weight: 600;
+}

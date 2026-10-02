@@ -1,32 +1,98 @@
-//AQUI EL JAVASCRIPT PARA MANIPULAR EL HTML
+// AQUI EL JAVASCRIPT PARA MANIPULAR EL HTML
 
-function calcular(){
-    let  ingresos=parseFloat(document.getElementById("txtIngresos").value);
-    let egresos=parseFloat(document.getElementById("txtEgresos").value);
+function validarInput(idInput, idError) {
 
-    let disponible=calcularDisponible(ingresos,egresos);
+    let input = document.getElementById(idInput);
+    let mensaje = document.getElementById(idError);
 
-    document.getElementById("spnDisponible").innerText=disponible.toFixed(2);
+    if (input.value === "") {
+        mensaje.innerText = "Este campo no puede estar vacío.";
+        return false;
+    }
+
+    if (!/^\d+$/.test(input.value)) {
+        mensaje.innerText = "Solo se permiten números.";
+        return false;
+    }
+
+    if (input.value.length > 5) {
+        mensaje.innerText = "Máximo 5 dígitos.";
+        return false;
+    }
+
+    mensaje.innerText = "";
+
+    return true;
+}
+
+
+function calcular() {
+
+    let ingresosValido = validarInput("txtIngresos", "errorIngresos");
+    let egresosValido = validarInput("txtEgresos", "errorEgresos");
+    let montoValido = validarInput("txtMonto", "errorMonto");
+    let plazoValido = validarInput("txtPlazo", "errorPlazo");
+    let tasaValida = validarInput("txtTasaInteres", "errorTasaInteres");
+
+    if (!ingresosValido || !egresosValido || !montoValido || !plazoValido || !tasaValida) {
+        return;
+    }
+
+    let ingresos = obtenerNumero("txtIngresos");
+    let egresos = obtenerNumero("txtEgresos");
+
+    let disponible = calcularDisponible(ingresos, egresos);
+
+    mostrarNumero("spnDisponible", disponible);
+
     let capacidadPago = calcularCapacidadPago(disponible);
-    document.getElementById("spnCapacidadPago").innerText=capacidadPago.toFixed(2);
 
-    let plazoAnios =parseInt(document.getElementById("txtPlazo").value);
-    let monto =parseInt(document.getElementById("txtMonto").value);
-    let tasa =parseInt(document.getElementById("txtTasaInteres").value);
-    let interes=calcularInteresSimple(monto,tasa,plazoAnios);
-    document.getElementById("spnInteresPagar").innerText=interes.toFixed(2);
+    mostrarNumero("spnCapacidadPago", capacidadPago);
+
+    let plazoAnios = obtenerNumero("txtPlazo");
+    let monto = obtenerNumero("txtMonto");
+    let tasa = obtenerNumero("txtTasaInteres");
+
+    let interes = calcularInteresSimple(monto, tasa, plazoAnios);
+
+    mostrarNumero("spnInteresPagar", interes);
+
     let total = calcularTotalPagar(monto, interes);
-    document.getElementById("spnTotalPrestamo").innerText=total.toFixed(2);
-    let cuotaTotal=calcularCuotaMensual(total,plazoAnios);
-    document.getElementById("spnCuotaMensual").innerText=cuotaTotal.toFixed(2);
-    let creditoAprobado = aprobarCredito(capacidadPago,cuotaTotal);
+
+    mostrarNumero("spnTotalPrestamo", total);
+
+    let cuotaTotal = calcularCuotaMensual(total, plazoAnios);
+
+    mostrarNumero("spnCuotaMensual", cuotaTotal);
+
+    let creditoAprobado = aprobarCredito(capacidadPago, cuotaTotal);
+
     if (creditoAprobado) {
-    document.getElementById("spnEstadoCredito").innerText = "CREDITO APROBADO";
-    } 
-    else {
-    document.getElementById("spnEstadoCredito").innerText = "CREDITO RECHAZADO";
+        mostrarTexto("spnEstadoCredito", "CREDITO APROBADO");
+    } else {
+        mostrarTexto("spnEstadoCredito", "CREDITO RECHAZADO");
+    }
 }
 
-}
 
-document.getElementById("btnCalcularCredito").addEventListener("click",calcular);
+// VALIDACIONES AL SALIR DEL INPUT
+
+agregarValidacionBlur("txtIngresos", "errorIngresos");
+agregarValidacionBlur("txtEgresos", "errorEgresos");
+agregarValidacionBlur("txtMonto", "errorMonto");
+agregarValidacionBlur("txtPlazo", "errorPlazo");
+agregarValidacionBlur("txtTasaInteres", "errorTasaInteres");
+
+
+// LIMITAR A 5 CARACTERES
+
+limitarCaracteres("txtIngresos");
+limitarCaracteres("txtEgresos");
+limitarCaracteres("txtMonto");
+limitarCaracteres("txtPlazo");
+limitarCaracteres("txtTasaInteres");
+
+
+// BOTON
+
+document.getElementById("btnCalcularCredito").addEventListener("click", calcular);

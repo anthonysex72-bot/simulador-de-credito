@@ -14,9 +14,11 @@
         <h2>Datos financieros</h2>
         <label for="txtIngresos">Ingresos:</label>
         <input type="text" id="txtIngresos">
+        <span id="errorIngresos" class="mensaje-error"></span>
 
         <label for="txtEgresos">Egresos:</label>
         <input type="text" id="txtEgresos">
+        <span id="errorEgresos" class="mensaje-error"></span>
 
         <p>Disponible: <span id="spnDisponible"></span></p>
         <p>Capacidad de pago mensual: <span id="spnCapacidadPago"></span></p>
@@ -24,12 +26,15 @@
         <h2>Solicitud de crédito</h2>
         <label for="txtMonto">Monto:</label>
         <input type="text" id="txtMonto">
+        <span id="errorMonto" class="mensaje-error"></span>
 
         <label for="txtPlazo">Plazo en años:</label>
         <input type="text" id="txtPlazo">
+        <span id="errorPlazo" class="mensaje-error"></span>
 
         <label for="txtTasaInteres">Tasa de interés:</label>
         <input type="text" id="txtTasaInteres">
+        <span id="errorTasaInteres" class="mensaje-error"></span>
 
         <p>Interés a pagar: <span id="spnInteresPagar"></span></p>
         <p>Total préstamo: <span id="spnTotalPrestamo"></span></p>
@@ -41,8 +46,9 @@
             <button id="btnReiniciar">Reiniciar</button>
         </div>
     </div>
-
-    <script src="funciones.js"></script>
-    <script src="simulador.js"></script>
+<script src="funciones.js"></script>
+<script src="utilitarios.js"></script>
+<script src="simulador.js"></script>
+    
 </body>
 </html>
