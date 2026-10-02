@@ -17,6 +17,8 @@ function calcular(){
     document.getElementById("spnInteresPagar").innerText=interes.toFixed(2);
     let total = calcularTotalPagar(monto, interes);
     document.getElementById("spnTotalPrestamo").innerText=total.toFixed(2);
+    let cuotaTotal=calcularCuotaMensual(total,plazoAnios);
+    document.getElementById("spnCuotaMensual").innerText=cuotaTotal.toFixed(2);
 
 }
 
