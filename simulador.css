@@ -1,70 +1,604 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f6f8;
-    margin: 0;
-    padding: 0;
+/* =========================================================
+   SIMULADOR DE CRÉDITO
+   Diseño: estilo bancario moderno
+   Magenta + ciruela
+========================================================= */
+
+:root {
+    --magenta-700: #a8005f;
+    --magenta-600: #c8006f;
+    --magenta-500: #e6007e;
+    --magenta-400: #ff2d9b;
+    --magenta-200: #ffb3da;
+
+    --plum-900: #1e0722;
+    --plum-800: #330a3a;
+    --plum-700: #4d1055;
+
+    --white: #ffffff;
+    --ink: #2a1230;
+    --ink-soft: #6e5a73;
+    --field: #fff6fb;
 }
 
-.container {
-    width: 400px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-h1 {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-h2 {
-    margin-top: 20px;
-    font-size: 18px;
-}
-
-label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-input {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+* {
     box-sizing: border-box;
 }
 
-p {
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 35px 15px;
+
+    font-family:
+        "Segoe UI",
+        system-ui,
+        -apple-system,
+        "Helvetica Neue",
+        Arial,
+        sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 12% 8%,
+            rgba(230, 0, 126, 0.35),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 90% 92%,
+            rgba(255, 45, 155, 0.22),
+            transparent 32%
+        ),
+        linear-gradient(
+            145deg,
+            #1e0722,
+            #330a3a 55%,
+            #4d1055
+        );
+
+    color: var(--white);
+
+    -webkit-font-smoothing: antialiased;
+}
+
+/* =========================================================
+   CONTENEDOR PRINCIPAL
+========================================================= */
+
+.container {
+    position: relative;
+    overflow: hidden;
+
+    width: 100%;
+    max-width: 720px;
+
+    margin: 0 auto;
+    padding: 46px 42px 42px;
+
+    background:
+        radial-gradient(
+            circle at 100% 0%,
+            rgba(255, 255, 255, 0.18),
+            transparent 40%
+        ),
+        radial-gradient(
+            circle at 0% 100%,
+            rgba(77, 16, 85, 0.45),
+            transparent 45%
+        ),
+        linear-gradient(
+            150deg,
+            var(--magenta-500),
+            var(--magenta-600) 55%,
+            var(--magenta-700)
+        );
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 30px 70px rgba(10, 0, 14, 0.55),
+        0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
+/* Franja superior de marca */
+
+.container::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+    right: 0;
+
+    height: 6px;
+
+    background:
+        linear-gradient(
+            90deg,
+            var(--white),
+            var(--magenta-200) 50%,
+            var(--plum-700)
+        );
+}
+
+/* =========================================================
+   ENCABEZADO
+========================================================= */
+
+h1 {
+    position: relative;
+
+    margin: 0 0 8px;
+    padding-bottom: 26px;
+
+    text-align: center;
+
+    font-size: 36px;
+    font-weight: 800;
+
+    color: var(--white);
+
+    letter-spacing: -1px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.28);
+
+    text-shadow:
+        0 2px 12px rgba(60, 0, 40, 0.25);
+}
+
+h1::before {
+    content: "NOVA";
+
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 13px;
+    font-weight: 800;
+
+    letter-spacing: 6px;
+
+    color: var(--magenta-200);
+
+    text-shadow: none;
+}
+
+h1::after {
+    content: "Haz realidad tus proyectos";
+
+    display: block;
+
     margin-top: 10px;
+
+    font-size: 15px;
+    font-weight: 400;
+
+    letter-spacing: 0;
+
+    color: rgba(255, 255, 255, 0.85);
+
+    text-shadow: none;
+}
+
+/* =========================================================
+   SECCIONES
+========================================================= */
+
+h2 {
+    display: flex;
+    align-items: center;
+
+    margin: 38px 0 20px;
+    padding: 14px 18px;
+
+    font-size: 16px;
+    font-weight: 800;
+
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+
+    color: var(--white);
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--plum-900),
+            var(--plum-700)
+        );
+
+    border-left: 5px solid var(--magenta-400);
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 10px 24px rgba(30, 7, 34, 0.35);
+}
+
+/* =========================================================
+   ETIQUETAS
+========================================================= */
+
+label {
+    display: block;
+
+    margin: 18px 0 7px;
+
+    font-size: 13px;
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+    color: var(--white);
+}
+
+/* =========================================================
+   INPUTS
+========================================================= */
+
+input {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    border: 2px solid transparent;
+    border-radius: 12px;
+
+    background: var(--field);
+
+    color: var(--ink);
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 500;
+
+    outline: none;
+
+    box-shadow:
+        0 4px 12px rgba(60, 0, 40, 0.18);
+
+    transition:
+        border-color 0.25s,
+        box-shadow 0.25s,
+        transform 0.25s,
+        background 0.25s;
+}
+
+input::placeholder {
+    color: #b39bb8;
+}
+
+input:hover {
+    border-color: var(--magenta-200);
+}
+
+input:focus {
+    background: var(--white);
+
+    border-color: var(--plum-700);
+
+    box-shadow:
+        0 0 0 4px rgba(255, 255, 255, 0.35),
+        0 10px 24px rgba(60, 0, 40, 0.25);
+
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   RESULTADOS
+========================================================= */
+
+p {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 15px;
+
+    margin: 12px 0;
+    padding: 15px 17px;
+
+    background: rgba(255, 255, 255, 0.14);
+
+    border: 1px solid rgba(255, 255, 255, 0.28);
+
+    border-left: 5px solid var(--white);
+
+    border-radius: 12px;
+
+    color: rgba(255, 255, 255, 0.92);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    box-shadow:
+        0 6px 16px rgba(60, 0, 40, 0.16);
 }
 
 span {
-    font-weight: bold;
-    color: #2c3e50;
+    font-weight: 800;
+
+    color: var(--white);
+
+    text-align: right;
+
+    font-variant-numeric: tabular-nums;
 }
 
+/* =========================================================
+   ESTADO DEL CRÉDITO
+========================================================= */
+
+#spnEstadoCredito {
+    display: inline-block;
+
+    padding: 6px 14px;
+
+    color: var(--magenta-700);
+
+    background: var(--white);
+
+    border-radius: 999px;
+
+    font-size: 14px;
+
+    letter-spacing: 0.3px;
+
+    box-shadow:
+        0 4px 12px rgba(60, 0, 40, 0.2);
+}
+
+/* =========================================================
+   BOTONES
+========================================================= */
+
 .buttons {
-    margin-top: 20px;
     display: flex;
-    justify-content: space-between;
+
+    gap: 14px;
+
+    margin-top: 30px;
 }
 
 button {
-    width: 48%;
-    padding: 10px;
+    flex: 1;
+
+    min-height: 54px;
+
+    padding: 15px 20px;
+
     border: none;
-    border-radius: 5px;
-    background-color: #3498db;
-    color: white;
-    font-weight: bold;
+
+    border-radius: 12px;
+
+    color: var(--white);
+
+    font-family: inherit;
+
+    font-size: 15px;
+    font-weight: 800;
+
+    letter-spacing: 0.5px;
+
     cursor: pointer;
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s,
+        filter 0.2s,
+        background 0.2s,
+        color 0.2s;
 }
 
-button:hover {
-    background-color: #2980b9;
+button:focus-visible {
+    outline: 3px solid rgba(255, 255, 255, 0.7);
+
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   BOTÓN PRINCIPAL
+========================================================= */
+
+#btnCalcularCredito {
+    color: var(--magenta-700);
+
+    background: var(--white);
+
+    box-shadow:
+        0 12px 26px rgba(40, 0, 30, 0.3);
+}
+
+#btnCalcularCredito:hover {
+    transform: translateY(-3px);
+
+    background: #fff0f8;
+
+    box-shadow:
+        0 16px 32px rgba(40, 0, 30, 0.4);
+}
+
+/* =========================================================
+   BOTÓN REINICIAR
+========================================================= */
+
+#btnReiniciar {
+    background: var(--plum-800);
+
+    border: 1.5px solid rgba(255, 255, 255, 0.3);
+
+    box-shadow:
+        0 8px 18px rgba(30, 7, 34, 0.3);
+}
+
+#btnReiniciar:hover {
+    transform: translateY(-3px);
+
+    background: var(--plum-900);
+
+    box-shadow:
+        0 12px 26px rgba(30, 7, 34, 0.45);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+/* =========================================================
+   TOTAL DEL PRÉSTAMO
+========================================================= */
+
+#spnTotalPrestamo {
+    font-size: 20px;
+
+    color: var(--white);
+}
+
+/* =========================================================
+   CUOTA MENSUAL
+========================================================= */
+
+#spnCuotaMensual {
+    font-size: 20px;
+
+    color: #ffe3f2;
+}
+
+/* =========================================================
+   TABLETS
+========================================================= */
+
+@media (max-width: 768px) {
+
+    body {
+        padding: 25px 12px;
+    }
+
+    .container {
+        max-width: 650px;
+
+        padding: 40px 25px 32px;
+    }
+
+    h1 {
+        font-size: 31px;
+    }
+}
+
+/* =========================================================
+   CELULARES
+========================================================= */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 15px 8px;
+    }
+
+    .container {
+        width: 100%;
+
+        padding: 32px 17px 25px;
+
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 27px;
+
+        padding-bottom: 20px;
+    }
+
+    h1::before {
+        font-size: 12px;
+
+        letter-spacing: 5px;
+    }
+
+    h1::after {
+        font-size: 13px;
+    }
+
+    h2 {
+        margin-top: 28px;
+
+        padding: 12px 14px;
+
+        font-size: 14px;
+    }
+
+    label {
+        font-size: 13px;
+    }
+
+    input {
+        padding: 14px;
+
+        font-size: 16px;
+    }
+
+    p {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 7px;
+
+        font-size: 14px;
+    }
+
+    span {
+        text-align: left;
+    }
+
+    #spnEstadoCredito {
+        font-size: 14px;
+    }
+
+    .buttons {
+        flex-direction: column;
+    }
+
+    button {
+        width: 100%;
+
+        min-height: 52px;
+    }
+}
+
+/* =========================================================
+   CELULARES PEQUEÑOS
+========================================================= */
+
+@media (max-width: 380px) {
+
+    body {
+        padding: 8px 5px;
+    }
+
+    .container {
+        padding: 28px 13px 22px;
+
+        border-radius: 17px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+
+    h2 {
+        font-size: 13px;
+    }
+
+    input {
+        font-size: 16px;
+    }
+
+    p {
+        padding: 13px;
+    }
 }
