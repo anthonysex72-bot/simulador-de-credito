@@ -8,4 +8,12 @@ function calcularDisponible(ingresos, egresos) {
     }
 
     return disponible;
+
+    
 }
+
+function calcularCapacidadPago(montoDisponible) {
+    let monto=montoDisponible/2;
+    return monto;
+}
+
