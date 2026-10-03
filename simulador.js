@@ -4,22 +4,83 @@ function validarInput(idInput, idError) {
 
     let input = document.getElementById(idInput);
     let mensaje = document.getElementById(idError);
+    let valor = input.value.trim();
 
-    if (input.value === "") {
-        mensaje.innerText = "Este campo no puede estar vacío.";
+    // CAMPO OBLIGATORIO
+    if (valor === "") {
+        mensaje.innerText = "Este campo es obligatorio.";
         return false;
     }
 
-    if (!/^\d+$/.test(input.value)) {
-        mensaje.innerText = "Solo se permiten números.";
-        return false;
+   // SOLO NÚMEROS Y DECIMALES
+   
+
+    if (!/^\d+(\.\d+)?$/.test(valor)) {
+
+    mensaje.innerText = "Ingrese un número válido.";
+
+    return false;
+
     }
 
-    if (input.value.length > 5) {
-        mensaje.innerText = "Máximo 5 dígitos.";
-        return false;
+    let numero = parseFloat(valor);
+
+    // VALIDACIÓN DE INGRESOS
+    if (idInput === "txtIngresos") {
+
+        if (numero <= 0) {
+            mensaje.innerText = "Los ingresos deben ser mayores que 0.";
+            return false;
+        }
+
     }
 
+    // VALIDACIÓN DE EGRESOS
+    if (idInput === "txtEgresos") {
+
+        if (numero < 0) {
+            mensaje.innerText = "Los egresos no pueden ser negativos.";
+            return false;
+        }
+
+    }
+
+    // VALIDACIÓN DEL MONTO
+    if (idInput === "txtMonto") {
+
+        if (numero <= 0) {
+            mensaje.innerText = "El monto debe ser mayor que 0.";
+            return false;
+        }
+
+    }
+
+    // VALIDACIÓN DEL PLAZO
+    if (idInput === "txtPlazo") {
+
+        if (!Number.isInteger(numero)) {
+            mensaje.innerText = "El plazo debe ser un número entero.";
+            return false;
+        }
+
+        if (numero < 1 || numero > 10) {
+            mensaje.innerText = "El plazo debe estar entre 1 y 10 años.";
+            return false;
+        }
+
+    }
+
+    // VALIDACIÓN DE LA TASA
+    if (idInput === "txtTasaInteres") {
+
+        if (numero < 1 || numero > 100) {
+            mensaje.innerText = "La tasa debe estar entre 1% y 100%.";
+            return false;
+        }
+
+    }
+
+    // SI TODO ESTÁ CORRECTO
     mensaje.innerText = "";
 
     return true;

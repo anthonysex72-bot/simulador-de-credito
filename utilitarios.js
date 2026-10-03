@@ -26,10 +26,34 @@ function limitarCaracteres(idInput) {
 
     document.getElementById(idInput).addEventListener("input", function () {
 
-        if (this.value.length > 5) {
-            this.value = this.value.slice(0, 5);
+        let valor = this.value;
+
+        let digitos = valor.replace(".", "");
+
+        if (digitos.length > 6) {
+
+            let cantidadPermitida = 6;
+
+            let resultado = "";
+            let contador = 0;
+
+            for (let i = 0; i < valor.length; i++) {
+
+                if (valor[i] !== ".") {
+                    contador++;
+                }
+
+                if (contador > cantidadPermitida) {
+                    break;
+                }
+
+                resultado += valor[i];
+            }
+
+            this.value = resultado;
         }
 
     });
-
 }
+
+
